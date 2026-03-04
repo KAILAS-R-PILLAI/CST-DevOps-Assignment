@@ -1,0 +1,17 @@
+---
+- name: Create a user on local machine
+  hosts: localhost
+  connection: local
+  become: yes
+
+  vars:
+    username: Task02_user
+    user_password: "{{ 'Task02@admin' | password_hash('sha512') }}"
+
+  tasks:
+    - name: Create the user account
+      user:
+        name: "{{ username }}"
+        password: "{{ user_password }}"
+        shell: /bin/bash
+        create_home: yes
